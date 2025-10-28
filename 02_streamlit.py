@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import io
-import openpyxl
 
 st.write("Summary E-Commerce Transaction Processor")
 
@@ -141,3 +140,4 @@ if uploaded_file:
             file_name='processed_data.xlsx',
             mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
+
