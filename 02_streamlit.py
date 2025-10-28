@@ -2,6 +2,10 @@ import streamlit as st
 import pandas as pd
 import io
 
+import streamlit as st
+import xlsxwriter
+from io import BytesIO
+
 st.title("Summary E-Commerce Transaction Processor")
 
 # Input for withdrawal amount and date
@@ -115,29 +119,18 @@ if uploaded_file:
         # Escrow Balance Calculation Table
         initial_balance = 852_855_295  # jumlah saldo saat penarikan
 
-        # Get total escrow amount from the TOTAL row in summary
-        # total_escrow_amount = sum.loc[sum['SETTLEMENT_ID'] == 'TOTAL', 'ESCROW_AMOUNT']#.values[0]
-        # escrow_amount = withdraw_amount if withdraw_amount > 0 else total_escrow_amount
-        # remaining_balance = initial_balance - escrow_amount
-
-        # escrow_balance_table = pd.DataFrame({
-        #     'Keterangan': ['Jumlah saldo saat penarikan', 'Total Escrow Amount', 'Nominal dana ditarik', 'Sisa saldo setelah ditarik'],
-        #     'Nominal': [initial_balance, total_escrow_amount, escrow_amount, remaining_balance]
-        # })
-
-        # st.markdown("### Escrow Balance Calculation")
-        # st.dataframe(escrow_balance_table)
-
-        # Download as Excel (sum and escrow_balance_table in separate sheets)
         output = io.BytesIO()
-        writer = pd.ExcelWriter(output, engine='xlsxwriter')
-        sum.to_excel(writer, index=False, sheet_name='ProcessedData')       
-        workbook=writer.book
-        worksheet=writer.sheets['ProcessedData']
+        workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+        worksheet = workbook.add_worksheet()
+        # writer = pd.ExcelWriter(output, engine='xlsxwriter')
+        # sum.to_excel(writer, index=False, sheet_name='ProcessedData')       
+        worksheet = workbook.add_worksheet()
+        worksheet.write('A1', 'Hello')
+        workbook.close()
+        # worksheet=writer.sheets['ProcessedData']
         # with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
         #     sum.to_excel(writer, index=False, sheet_name='ProcessedData')
-            # escrow_balance_table.to_excel(writer, index=False, sheet_name='Escrow_Balance')
-        writer.save()
+            # escrow_balance_table.to_excel(writer, index=False, sheet_name='Escrow_Balance')()
         output.seek(0)
         st.download_button(
             label="Download Processed Data (Excel)",
@@ -145,6 +138,4 @@ if uploaded_file:
             file_name='processed_data.xlsx',
             mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
-
-
-
+    
