@@ -1,10 +1,7 @@
 import streamlit as st
 import pandas as pd
 import io
-
-import streamlit as st
 import xlsxwriter
-from io import BytesIO
 
 st.title("Summary E-Commerce Transaction Processor")
 
@@ -139,3 +136,4 @@ if uploaded_file:
             mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
     
+
