@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import io
 
-st.write("Summary E-Commerce Transaction Processor")
+st.title("Summary E-Commerce Transaction Processor")
 
 # Input for withdrawal amount and date
 withdraw_date = st.date_input("Input tanggal penarikan (withdrawal date)")
@@ -140,4 +140,5 @@ if uploaded_file:
             file_name='processed_data.xlsx',
             mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
+
 
