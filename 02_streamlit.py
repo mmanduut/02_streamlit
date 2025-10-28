@@ -130,7 +130,7 @@ if uploaded_file:
 
         # Download as Excel (sum and escrow_balance_table in separate sheets)
         output = io.BytesIO()
-        with pd.ExcelWriter(output, engine='openpyxl') as writer:
+        with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
             sum.to_excel(writer, index=False, sheet_name='ProcessedData')
             # escrow_balance_table.to_excel(writer, index=False, sheet_name='Escrow_Balance')
         output.seek(0)
@@ -140,5 +140,6 @@ if uploaded_file:
             file_name='processed_data.xlsx',
             mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
+
 
 
